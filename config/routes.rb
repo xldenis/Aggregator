@@ -1,4 +1,12 @@
 Aggregator::Application.routes.draw do
+  get "home/index"
+
+
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
+
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  root :to=> "home#index"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
